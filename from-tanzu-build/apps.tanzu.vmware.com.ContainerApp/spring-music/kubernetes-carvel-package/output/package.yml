@@ -1,0 +1,31 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/spring-music
+  creationTimestamp: null
+  name: spring-music.apps.local.20240805.2235.50100
+spec:
+  refName: spring-music.apps.local
+  releasedAt: "2024-08-05T22:38:26Z"
+  template:
+    spec:
+      deploy:
+      - kapp:
+          rawOptions:
+          - --wait=false
+      fetch:
+      - imgpkgBundle:
+          image: index.docker.io/boskey/spring-music@sha256:81b7feb171c89863db48288ccd79b8f52d5ac73eb7d8e00289a6c4e9b28c408d
+      template:
+      - ytt:
+          paths:
+          - config/
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+  valuesSchema:
+    openAPIv3: null
+  version: 20240805.2235.50100
